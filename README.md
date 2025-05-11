@@ -124,6 +124,35 @@ clasp login
 
 初回ログイン時は、ブラウザウィンドウが開き、Google認証を求められます。認証を完了することで、ローカル環境でのGAS開発が可能になります。
 
+### 開発環境のセットアップ（開発者向け）
+
+このリポジトリでは、各開発者が独自のScriptIDを使用できるように`.clasp.json`ファイルをgit管理から除外しています。新たに開発を始める場合は、以下の手順に従ってください：
+
+1. プロジェクトディレクトリに移動
+   ```bash
+   cd プロジェクトフォルダ名（例：spreadsheet-hello-message）
+   ```
+
+2. `.clasp.json.sample`ファイルを`.clasp.json`にコピー
+   ```bash
+   cp .clasp.json.sample .clasp.json
+   ```
+
+3. `.clasp.json`ファイルを編集し、自分のScriptIDを設定
+   ```bash
+   # テキストエディタで開いて編集
+   vi .clasp.json
+   
+   # または次のコマンドで直接置換する場合（YOUR_SCRIPT_ID_HEREを自分のScriptIDに置き換え）
+   sed -i '' 's/YOUR_SCRIPT_ID_HERE/あなたのScriptID/g' .clasp.json
+   ```
+
+4. ScriptIDを持っていない場合は、新しいGASプロジェクトを作成
+   ```bash
+   clasp create --title "プロジェクト名" --rootDir .
+   # 注意: 上記コマンドで.clasp.jsonが自動生成されるため、先に.clasp.json.sampleをコピーする必要はありません
+   ```
+
 ### トラブルシューティング
 
 - `.clasp.json` ファイルが各プロジェクトフォルダに存在し、正しい `scriptId` を持っていることを確認してください

@@ -12,6 +12,7 @@ function displayGreeting() {
     const mei = sheet.getRange(2, 2).getValue() || '';
     
     // メッセージボックスを表示
+    console.log(`こんにちは! ${sei} ${mei}さん`);
     Browser.msgBox(`こんにちは!\n\n${sei} ${mei}さん`);
   } catch (error) {
     console.error('エラーが発生しました:', error);

@@ -56,10 +56,34 @@
    clasp login
    ```
 
-3. スプレッドシートとスクリプトの紐付け（新規作成の場合）
-   ```bash
-   clasp create --title "挨拶メッセージアプリ" --type sheets --rootDir spreadsheet-hello-message
-   ```
+3. 開発環境の設定
+   - 既存のScriptIDを利用する場合:
+     ```bash
+     # .clasp.json.sampleを.clasp.jsonにコピー
+     cp .clasp.json.sample .clasp.json
+     
+     # .clasp.jsonを編集し、自分のScriptIDを設定
+     vi .clasp.json
+     # または次のコマンドで直接置換（YOUR_SCRIPT_ID_HEREを自分のScriptIDに置き換え）
+     # macOSの場合:
+     # 注意: 以下のコマンドはOSによって異なります。macOS、Linux、Windows (Git Bash) の例を示します。
+     sed -i '' 's/YOUR_SCRIPT_ID_HERE/あなたのScriptID/g' .clasp.json
+     sed -i '' 's/YOUR_SPREADSHEET_ID_HERE/あなたのSpreadsheetID/g' .clasp.json
+     
+     # Linuxの場合:
+     sed -i 's/YOUR_SCRIPT_ID_HERE/あなたのScriptID/g' .clasp.json
+     sed -i 's/YOUR_SPREADSHEET_ID_HERE/あなたのSpreadsheetID/g' .clasp.json
+     
+     # Windows (Git Bash)の場合:
+     sed -i 's/YOUR_SCRIPT_ID_HERE/あなたのScriptID/g' .clasp.json
+     sed -i 's/YOUR_SPREADSHEET_ID_HERE/あなたのSpreadsheetID/g' .clasp.json
+     ```
+     
+   - 新しいScriptIDを作成する場合:
+     ```bash
+     clasp create --title "挨拶メッセージアプリ" --type sheets --rootDir .
+     # 注意: このコマンドで.clasp.jsonが自動生成されます
+     ```
 
 ### コードの修正とデプロイ
 
