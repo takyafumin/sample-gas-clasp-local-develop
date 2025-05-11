@@ -4,21 +4,18 @@
 
 ## セットアップ手順
 
-### 1. CLASPトークンの取得
+### 1. GitHub Environment Secretsの設定
 
-GitHub ActionsでGASをデプロイするには、CLASPの認証情報をGitHubのSecretsに保存する必要があります。
+GitHub ActionsでGASをデプロイするには、各環境（development, production）に対して以下のSecretsを設定する必要があります：
 
-1. ローカル環境でclaspにログインします
-   ```bash
-   clasp login
-   ```
+- 各環境（development/production）固有のSecrets:
+  - **SCRIPT_ID**: その環境のGASスクリプトID
+  - **PARENT_ID**: その環境の親リソースID（スプレッドシート等）
 
-2. ログイン後、以下のファイルの内容をコピーします
-   ```bash
-   cat ~/.clasprc.json
-   ```
+- リポジトリ全体で共有するSecret:
+  - **CLASP_TOKEN**: CLASPの認証情報
 
-3. コピーした内容をGitHub Repositoryの **Settings > Secrets and variables > Actions** に `CLASP_TOKEN` という名前で保存します
+詳細な設定方法については、[GitHub Environment Secretsの設定方法](./github-environment-secrets-setup.md)を参照してください。
 
 ### 2. デプロイの実行
 
@@ -27,11 +24,18 @@ GitHub ActionsでGASをデプロイするには、CLASPの認証情報をGitHub�
 3. 「Run workflow」ボタンをクリック
 4. 表示されるフォームで以下を設定:
    - デプロイするプロジェクト名（デフォルトは`apps/spreadsheet-hello-message`）
+   - デプロイ環境（`development`または`production`）
    - デプロイの説明
 5. 「Run workflow」をクリックして実行
+
+**注意**: 選択した環境（development/production）に応じて、その環境に設定されたScriptIDとParentIDが自動的に使用されます。
 
 ### 注意事項
 
 - デプロイは手動実行のみとなっています
-- claspのログイン情報（トークン）はGitHub Secretsに保持されています
+- 機密情報はGitHub Environment Secretsに安全に保存されています
+  - 環境固有の情報（SCRIPT_ID, PARENT_ID）は各環境のSecretsに設定
+  - 共通情報（CLASP_TOKEN）はリポジトリSecretsに設定
+- ローカル環境の`.clasp.json`ファイルをGitにコミットする必要はありません（`.gitignore`に追加推奨）
 - トークンの有効期限が切れた場合は、再度ローカルでログインし、トークンを更新してください
+- 新しい環境を追加する場合は、GitHubで新しい環境を作成し、必要なSecretsを設定してください
