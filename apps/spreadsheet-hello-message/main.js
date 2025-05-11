@@ -19,3 +19,21 @@ function displayGreeting() {
     Browser.msgBox('エラーが発生しました。詳細はログを確認してください。');
   }
 }
+
+/**
+ * スプレッドシートが開かれたときに実行される関数
+ * カスタムメニューを追加する
+ */
+function onOpen() {
+  try {
+    // カスタムメニューを追加
+    const ui = SpreadsheetApp.getUi();
+    ui.createMenu('カスタム機能')
+      .addItem('挨拶を表示', 'displayGreeting')
+      .addToUi();
+    
+    console.log('カスタムメニューを追加しました');
+  } catch (error) {
+    console.error('メニュー追加中にエラーが発生しました:', error);
+  }
+}
