@@ -26,7 +26,7 @@ GitHub ActionsでGASをデプロイするには、CLASPの認証情報をGitHub�
 2. 左側のサイドバーから「Manual GAS Deploy」ワークフローを選択
 3. 「Run workflow」ボタンをクリック
 4. 表示されるフォームで以下を設定:
-   - デプロイするプロジェクト名（デフォルトは`spreadsheet-hello-message`）
+   - デプロイするプロジェクト名（デフォルトは`apps/spreadsheet-hello-message`）
    - デプロイの説明
 5. 「Run workflow」をクリックして実行
 

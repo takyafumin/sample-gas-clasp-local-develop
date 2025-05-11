@@ -6,10 +6,10 @@ on:
       project:
         description: 'デプロイするプロジェクト名'
         required: true
-        default: 'spreadsheet-hello-message'
+        default: 'apps/spreadsheet-hello-message'
         type: choice
         options:
-        - spreadsheet-hello-message
+        - apps/spreadsheet-hello-message
       description:
         description: 'デプロイの説明'
         required: true
