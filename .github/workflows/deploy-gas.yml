@@ -1,0 +1,56 @@
+name: Manual GAS Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      project:
+        description: 'デプロイするプロジェクト名'
+        required: true
+        default: 'spreadsheet-hello-message'
+        type: choice
+        options:
+        - spreadsheet-hello-message
+      description:
+        description: 'デプロイの説明'
+        required: true
+        default: 'GitHub Actionsによる自動デプロイ'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ github.inputs.project }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install Clasp
+        run: npm install -g @google/clasp
+
+      - name: Set up Clasp authentication
+        run: |
+          echo "${{ secrets.CLASP_TOKEN }}" > ~/.clasprc.json
+
+      - name: Push to Google Apps Script
+        run: clasp push -f
+
+      - name: Deploy Script
+        id: deploy
+        run: |
+          DEPLOY_ID=$(clasp deploy --description "${{ github.inputs.description }}" --json)
+          echo "deploy_id=$DEPLOY_ID" >> $GITHUB_OUTPUT
+          echo "Deployed with ID: $DEPLOY_ID"
+
+      - name: Deployment Information
+        run: |
+          echo "プロジェクト： ${{ github.inputs.project }}"
+          echo "デプロイの説明： ${{ github.inputs.description }}"
+          echo "デプロイ完了"

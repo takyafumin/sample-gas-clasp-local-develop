@@ -23,7 +23,11 @@ GASをローカル環境で開発する検証サンプル
 
 各プロジェクトをデプロイする際の基本的な手順を以下に示します。
 
-### 初期設定
+### GitHub Actionsによるデプロイ
+
+このリポジトリではGitHub Actionsを使用して簡単にGASプロジェクトをデプロイできます。詳細は [GitHub ActionsでのGASデプロイ方法](./docs/github-actions-deploy.md) を参照してください。
+
+### 初期設定（手動デプロイ）
 
 ```bash
 # Google にログイン
