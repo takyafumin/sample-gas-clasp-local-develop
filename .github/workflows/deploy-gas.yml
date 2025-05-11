@@ -26,10 +26,10 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: ${{ github.inputs.environment }}
+    environment: ${{ inputs.environment }}
     defaults:
       run:
-        working-directory: ${{ github.inputs.project }}
+        working-directory: ${{ inputs.project }}
 
     steps:
       - name: Checkout code
@@ -59,7 +59,7 @@ jobs:
       - name: Deploy Script
         id: deploy
         run: |
-          DEPLOY_ID=$(clasp deploy --description "${{ github.inputs.description }}" --json)
+          DEPLOY_ID=$(clasp deploy --description "${{ inputs.description }}" --json)
           # IDから機密情報を除去して出力
           MASKED_DEPLOY_ID=$(echo "$DEPLOY_ID" | jq 'del(.deploymentId) + {deploymentId: "***"}' 2>/dev/null || echo "$DEPLOY_ID")
           echo "deploy_id=$DEPLOY_ID" >> $GITHUB_OUTPUT
@@ -67,8 +67,8 @@ jobs:
 
       - name: Deployment Information
         run: |
-          echo "プロジェクト： ${{ github.inputs.project }}"
-          echo "環境： ${{ github.inputs.environment }}"
-          echo "デプロイの説明： ${{ github.inputs.description }}"
+          echo "プロジェクト： ${{ inputs.project }}"
+          echo "環境： ${{ inputs.environment }}"
+          echo "デプロイの説明： ${{ inputs.description }}"
           echo "スクリプトID： ***（セキュリティのため非表示）"
           echo "デプロイ完了"
