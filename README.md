@@ -2,6 +2,15 @@
 
 GASをローカル環境で開発する検証サンプル
 
+## 前提条件
+
+このプロジェクトを利用するには、以下の環境が必要です。
+
+- Node.js (v12以上推奨)
+- npm または yarn
+- [clasp](https://github.com/google/clasp) のglobalインストール（[インストール方法](#claspコマンドのインストール)）
+- Googleアカウント
+
 ## プロジェクト構成
 
 このリポジトリは複数のGoogle Apps Scriptプロジェクトをサブフォルダとして含んでいます。各プロジェクトは独立したGASアプリケーションとして機能します。
@@ -48,6 +57,30 @@ GASをローカル環境で開発する検証サンプル
 4. このREADMEに新プロジェクトの説明を追加
 
 ## TIPS
+
+### claspコマンドのインストール
+
+このプロジェクトを使用するには、Google Apps Script をローカル環境で開発するためのCLIツール「clasp」が必要です。
+
+```bash
+# グローバルインストール
+npm install -g @google/clasp
+
+# または yarn を使用する場合
+yarn global add @google/clasp
+
+# インストールの確認
+clasp --version
+```
+
+インストール後、Google アカウントでの認証が必要です:
+
+```bash
+# Google アカウントでログイン
+clasp login
+```
+
+初回ログイン時は、ブラウザウィンドウが開き、Google認証を求められます。認証を完了することで、ローカル環境でのGAS開発が可能になります。
 
 ### claspによるデプロイ手順
 
