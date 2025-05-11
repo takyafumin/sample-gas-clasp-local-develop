@@ -40,7 +40,7 @@
 
 以下は実際の動作デモです：
 
-<video src="../resources/movie/Msgbox-dev.mov" controls width="100%"></video>
+![動作デモ](../resources/movie/Msgbox-dev.gif)
 
 ## 開発者向け情報
 
