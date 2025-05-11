@@ -10,6 +10,14 @@ on:
         type: choice
         options:
         - apps/spreadsheet-hello-message
+      environment:
+        description: 'デプロイ環境'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+        - development
+        - production
       description:
         description: 'デプロイの説明'
         required: true
@@ -18,6 +26,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: ${{ github.inputs.environment }}
     defaults:
       run:
         working-directory: ${{ github.inputs.project }}
@@ -52,5 +61,6 @@ jobs:
       - name: Deployment Information
         run: |
           echo "プロジェクト： ${{ github.inputs.project }}"
+          echo "環境： ${{ github.inputs.environment }}"
           echo "デプロイの説明： ${{ github.inputs.description }}"
           echo "デプロイ完了"
