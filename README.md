@@ -17,3 +17,59 @@ GASをローカル環境で開発する検証サンプル
 2. そのフォルダ内で`clasp create`を実行してプロジェクトを初期化
 3. 必要なコードを実装
 4. このREADMEに新プロジェクトの説明を追加
+
+## TIPS
+
+### claspによるデプロイ手順
+
+各プロジェクトをデプロイする際の基本的な手順を以下に示します。
+
+#### 初期設定
+
+```bash
+# Google にログイン
+clasp login
+
+# プロジェクトディレクトリに移動
+cd プロジェクトフォルダ名（例：spreadsheet-hello-message）
+```
+
+#### 開発作業
+
+```bash
+# Google Apps Script プロジェクトからローカルへのファイル取得
+clasp pull
+
+# プロジェクトをブラウザで開く
+clasp open
+```
+
+#### GAS反映(アップロード)作業
+
+```bash
+# ファイルをローカル編集後、Google Apps Script プロジェクトにアップロード
+clasp push
+
+# プロジェクトをブラウザで開く
+clasp open
+```
+
+#### デプロイ作業
+
+```bash
+# デプロイを作成
+clasp deploy --description "デプロイの説明"
+
+# バージョン付きでデプロイ
+clasp version "バージョンの説明"
+clasp deploy --version バージョン番号 --description "デプロイの説明"
+
+# デプロイ履歴を確認
+clasp deployments
+```
+
+#### トラブルシューティング
+
+- `.clasp.json` ファイルが各プロジェクトフォルダに存在し、正しい `scriptId` を持っていることを確認してください
+- 権限エラーが発生した場合は `clasp login` で再度ログインしてみてください
+- 詳細なログを見るには `clasp push --log` を使用してください
