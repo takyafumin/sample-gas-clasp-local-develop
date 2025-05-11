@@ -19,6 +19,48 @@ GASをローカル環境で開発する検証サンプル
 | ------------------------- | ---------------------------------------------------------------------------------------- |
 | spreadsheet-hello-message | スプレッドシート上の名前情報を取得し、挨拶メッセージを表示するシンプルなアプリケーション |
 
+## デプロイ手順
+
+各プロジェクトをデプロイする際の基本的な手順を以下に示します。
+
+### 初期設定
+
+```bash
+# Google にログイン
+clasp login
+
+# プロジェクトディレクトリに移動
+cd プロジェクトフォルダ名（例：spreadsheet-hello-message）
+```
+
+### GAS反映(アップロード)作業
+
+ソースコードをローカルで編集した後、Google Apps Script プロジェクトにアップロードする手順です。
+
+```bash
+# ファイルをローカル編集後、Google Apps Script プロジェクトにアップロード
+clasp push
+
+# プロジェクトをブラウザで開く
+clasp open
+```
+
+### デプロイ作業
+
+デプロイは、Google Apps Script プロジェクトを公開するための手順です。以下のコマンドでデプロイを作成します。
+
+```bash
+# デプロイを作成
+clasp deploy --description "デプロイの説明"
+
+# バージョン付きでデプロイ
+clasp version "バージョンの説明"
+clasp deploy --version バージョン番号 --description "デプロイの説明"
+
+# デプロイ履歴を確認
+clasp deployments
+```
+
 ## 新しいGASプロジェクトの追加方法
 
 新しいGoogle Apps Scriptプロジェクトを追加する場合は、以下の2つのユースケースに応じて手順を実行してください。
@@ -82,55 +124,7 @@ clasp login
 
 初回ログイン時は、ブラウザウィンドウが開き、Google認証を求められます。認証を完了することで、ローカル環境でのGAS開発が可能になります。
 
-### claspによるデプロイ手順
-
-各プロジェクトをデプロイする際の基本的な手順を以下に示します。
-
-#### 初期設定
-
-```bash
-# Google にログイン
-clasp login
-
-# プロジェクトディレクトリに移動
-cd プロジェクトフォルダ名（例：spreadsheet-hello-message）
-```
-
-#### 開発作業
-
-```bash
-# Google Apps Script プロジェクトからローカルへのファイル取得
-clasp pull
-
-# プロジェクトをブラウザで開く
-clasp open
-```
-
-#### GAS反映(アップロード)作業
-
-```bash
-# ファイルをローカル編集後、Google Apps Script プロジェクトにアップロード
-clasp push
-
-# プロジェクトをブラウザで開く
-clasp open
-```
-
-#### デプロイ作業
-
-```bash
-# デプロイを作成
-clasp deploy --description "デプロイの説明"
-
-# バージョン付きでデプロイ
-clasp version "バージョンの説明"
-clasp deploy --version バージョン番号 --description "デプロイの説明"
-
-# デプロイ履歴を確認
-clasp deployments
-```
-
-#### トラブルシューティング
+### トラブルシューティング
 
 - `.clasp.json` ファイルが各プロジェクトフォルダに存在し、正しい `scriptId` を持っていることを確認してください
 - 権限エラーが発生した場合は `clasp login` で再度ログインしてみてください
