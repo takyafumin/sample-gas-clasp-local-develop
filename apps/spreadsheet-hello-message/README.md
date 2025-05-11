@@ -40,7 +40,7 @@
 
 以下は実際の動作デモです：
 
-![動作デモ](../resources/movie/Msgbox-dev.gif)
+![動作デモ](../../resources/movie/Msgbox-dev.gif)
 
 ## 開発者向け情報
 
@@ -48,7 +48,7 @@
 
 1. このプロジェクトをクローン
    ```bash
-   cd sample-gas-clasp-local-develop
+   cd sample-gas-clasp-local-develop/apps/spreadsheet-hello-message
    ```
 
 2. Google にログイン
@@ -90,7 +90,7 @@
 1. コードを修正
 2. GASプロジェクトにアップロード
    ```bash
-   cd spreadsheet-hello-message
+   # すでにapps/spreadsheet-hello-messageディレクトリにいる場合は以下のコマンドを実行
    clasp push
    ```
 

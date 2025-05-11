@@ -1,6 +1,9 @@
 # .clasp.json files (contain developer-specific script IDs)
 **/.clasp.json
 
+# Clasp auth token
+.clasprc.json
+
 # Node modules
 node_modules/
 

@@ -1,0 +1,74 @@
+name: Manual GAS Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      project:
+        description: 'デプロイするプロジェクト名'
+        required: true
+        default: 'apps/spreadsheet-hello-message'
+        type: choice
+        options:
+        - apps/spreadsheet-hello-message
+      environment:
+        description: 'デプロイ環境'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+        - development
+        - production
+      description:
+        description: 'デプロイの説明'
+        required: true
+        default: 'GitHub Actionsによる自動デプロイ'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ github.inputs.environment }}
+    defaults:
+      run:
+        working-directory: ${{ github.inputs.project }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install Clasp
+        run: npm install -g @google/clasp
+
+      - name: Set up Clasp authentication
+        run: |
+          echo "${{ secrets.CLASP_TOKEN }}" > ~/.clasprc.json
+
+      - name: Create .clasp.json with environment-specific values
+        run: |
+          echo "{ \"scriptId\": \"${{ secrets.SCRIPT_ID }}\", \"rootDir\": \".\", \"parentId\": [\"${{ secrets.PARENT_ID }}\"] }" > .clasp.json
+          cat .clasp.json | jq 'del(.scriptId, .parentId) + {scriptId: "***", parentId: ["***"]}' || echo "Created .clasp.json (hiding sensitive info)"
+
+      - name: Push to Google Apps Script
+        run: clasp push -f
+
+      - name: Deploy Script
+        id: deploy
+        run: |
+          DEPLOY_ID=$(clasp deploy --description "${{ github.inputs.description }}" --json)
+          # IDから機密情報を除去して出力
+          MASKED_DEPLOY_ID=$(echo "$DEPLOY_ID" | jq 'del(.deploymentId) + {deploymentId: "***"}' 2>/dev/null || echo "$DEPLOY_ID")
+          echo "deploy_id=$DEPLOY_ID" >> $GITHUB_OUTPUT
+          echo "Deployed with ID (masked): $MASKED_DEPLOY_ID"
+
+      - name: Deployment Information
+        run: |
+          echo "プロジェクト： ${{ github.inputs.project }}"
+          echo "環境： ${{ github.inputs.environment }}"
+          echo "デプロイの説明： ${{ github.inputs.description }}"
+          echo "スクリプトID： ***（セキュリティのため非表示）"
+          echo "デプロイ完了"
