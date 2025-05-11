@@ -66,6 +66,7 @@
      vi .clasp.json
      # または次のコマンドで直接置換（YOUR_SCRIPT_ID_HEREを自分のScriptIDに置き換え）
      sed -i '' 's/YOUR_SCRIPT_ID_HERE/あなたのScriptID/g' .clasp.json
+     sed -i '' 's/YOUR_SPREADSHEET_ID_HERE/あなたのSpreadsheetID/g' .clasp.json
      ```
      
    - 新しいScriptIDを作成する場合:
